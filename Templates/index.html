@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <br>
+ <div class="add_buttons">
+
+    <div class="button_group">
+        <a href="{% url 'display_smartphone' %}" class="btn btn-primary btn-lg btn-trim" role="button"> smartphone</a>
+        <a href="{% url 'add_smartphone' %}" class="btn btn-primary btn-md btn-pad" role="button"> +</a>
+
+        <a href="{% url 'display_laptop' %}" class="btn btn-primary btn-lg btn-trim" role="button"> laptop</a>
+        <a href="{% url 'add_laptop' %}" class="btn btn-primary btn-md btn-pad" role="button"> +</a>
+
+    </div>
+ </div>
+    <br>
+    <div>
+     <h4>Currently viewing {{ header }} </h4>
+    </div>
+
+
+    <table class="table table-hover">
+        <thead>
+         <tr>
+            <th>Id</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Launch</th>
+
+         </tr>
+        </thead>
+        <tbody>
+
+         {% for product in products %}
+          <tr>
+            <td>{{ product.pk }}</td>
+            <td>{{ product.type }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.status }}</td>
+            <td>{{ product.launch }}</td>
+
+            {% if  header|lower == "smartphone" %}
+            <td>
+                <a href = "{% url 'edit_smartphone'  product.pk %}" class = "btn btn-warning btn-sm" role = "button"> Edit </a>
+                <a href = "{% url 'delete_smartphone'  product.pk %}" class = "btn btn-warning btn-sm" role = "button"> Delete </a>
+            </td>
+            {% else %}
+            <td>
+                <a href = "{% url 'edit_laptop' product.pk %}" class = "btn btn-warning btn-sm" role = "button"> Edit </a>
+                <a href = "{% url 'delete_laptop'  product.pk %}" class = "btn btn-warning btn-sm" role = "button"> Delete </a>
+            </td>
+            {% endif %}
+          </tr>
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
